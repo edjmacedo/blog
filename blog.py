@@ -4,12 +4,24 @@ from string import letters
 
 import webapp2
 import jinja2
+import hashlib
 
 from google.appengine.ext import db
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
+
+def hash_str(s):
+    return hashlib.md5(s).hexdigest()
+
+def make_secure_val(s):
+    return "%s|%s" % (s, hash_str(s))
+
+def check_secure_val(h):
+    val = h.split('|')[0]
+    if h == make_secure_val(val):
+        return val
 
 def render_str(template, **params):
     t = jinja_env.get_template(template)
@@ -30,18 +42,22 @@ def render_post(response, post):
     response.out.write(post.content)
 
 class MainPage(BlogHandler):
-  def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-    visits = self.request.cookies.get('visits', '0')
-    if visits.isdigit():
-        visits = int(visits) + 1
-    else:
-        visits = 0    
-    self.response.headers.add_header('Set-Cookie', 'visits=%s' % visits)
-    if visits > 100:
-        self.write("You are the best!")
-    else:
-        self.write("You've been here %s times!" % visits)
+    def get(self):
+        self.response.headers['Content-Type'] = 'text/plain'
+        visits = 0
+        visit_cookie_str = self.request.cookies.get('visits')
+        if visit_cookie_str:
+            cookie_val = check_secure_val(visit_cookie_str)
+            if cookie_val:
+                visits = int(cookie_val)
+            
+        visits += 1    
+        new_cookie_val = make_secure_val(str(visits))
+        self.response.headers.add_header('Set-Cookie', 'visits=%s' % new_cookie_val)
+        if visits > 100:
+            self.write("You are the best!")
+        else:
+            self.write("You've been here %s times!" % visits)
     
 
 ##### blog stuff
