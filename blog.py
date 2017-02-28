@@ -31,7 +31,18 @@ def render_post(response, post):
 
 class MainPage(BlogHandler):
   def get(self):
-      self.write('Hello!')
+    self.response.headers['Content-Type'] = 'text/plain'
+    visits = self.request.cookies.get('visits', '0')
+    if visits.isdigit():
+        visits = int(visits) + 1
+    else:
+        visits = 0    
+    self.response.headers.add_header('Set-Cookie', 'visits=%s' % visits)
+    if visits > 100:
+        self.write("You are the best!")
+    else:
+        self.write("You've been here %s times!" % visits)
+    
 
 ##### blog stuff
 
