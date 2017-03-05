@@ -253,6 +253,22 @@ class Unit3Welcome(BlogHandler):
         else:
             self.redirect('/blog/signup')
 
+class Login(BlogHandler):
+    def get(self):
+        self.render('login-form.html')
+
+    def post(self):
+        username = self.request.get('username')
+        password = self.request.get('password')
+
+        u = User.login(username, password)
+        if u:
+            self.login(u)
+            self.redirect('/blog/welcome')
+        else:
+            msg = 'Invalid login'
+            self.render('login-form.html', error = msg)
+
 
 app = webapp2.WSGIApplication([('/', MainPage),                               
                                ('/blog/?', BlogFront),
@@ -260,5 +276,6 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/blog/newpost', NewPost),
                                ('/blog/signup', Register),
                                ('/blog/welcome', Unit3Welcome),
+                               ('/blog/login', Login)
                                ],
                               debug=True)
