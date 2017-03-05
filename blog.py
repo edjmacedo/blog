@@ -177,7 +177,10 @@ class PostPage(BlogHandler):
 
 class NewPost(BlogHandler):
     def get(self):
-        self.render("newpost.html")
+        if self.user:
+            self.render("newpost.html")
+        else:
+            self.redirect("login")
 
     def post(self):
         subject = self.request.get('subject')
