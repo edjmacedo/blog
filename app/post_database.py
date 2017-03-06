@@ -1,6 +1,7 @@
 from google.appengine.ext import db
-import utils
+from utils import *
 
+# This class create post table in database
 class Post(db.Model):
     subject = db.StringProperty(required = True)
     content = db.TextProperty(required = True)

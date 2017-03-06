@@ -1,5 +1,7 @@
 from google.appengine.ext import db
+from utils import *
 ###User Database
+### This class create and handle user table
 class User(db.Model):
     name = db.StringProperty(required = True)
     pw_hash = db.StringProperty(required = True)
