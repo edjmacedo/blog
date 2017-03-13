@@ -12,7 +12,7 @@ class PostPage(BlogHandler):
             if not post:
                 self.error(404)
                 return
-            comments = db.GqlQuery("select * from Comment")
+            comments = db.GqlQuery("select * from Comment where post_id = " + post_id)
             self.render("permalink.html", post = post, comments = comments)
         else:
             self.redirect("/")
