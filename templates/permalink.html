@@ -3,4 +3,15 @@
 {% block content %}
   <a href="/">Home Page</a>
   {{post.render() | safe}}
+
+   <h3>Comments</h3>
+  {% for c in comments %}    
+    {{c.render() | safe}}
+  {% endfor %}
+  <form method="post">
+      <p>Comment:</p>
+      <textarea name="content">{{content}}</textarea>
+      <br>
+      <button type="submit">Comment</button>
+  </form>
 {% endblock %}

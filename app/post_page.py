@@ -1,6 +1,7 @@
 from user_database import User
 from blog_handler import BlogHandler
 from utils import *
+from comment_database import Comment
 
 class PostPage(BlogHandler):
     def get(self, post_id):
@@ -11,7 +12,19 @@ class PostPage(BlogHandler):
             if not post:
                 self.error(404)
                 return
-
-            self.render("permalink.html", post = post)
+            comments = db.GqlQuery("select * from Comment")
+            self.render("permalink.html", post = post, comments = comments)
+        else:
+            self.redirect("/")
+            
+    def post(self, post_id):
+        if self.user:
+            content = self.request.get("content")
+            if content:
+                usr_comment = Comment(content = str(content), author = int(self.read_secure_cookie('user_id')), post_id = int(post_id))
+                usr_comment.put()
+                self.redirect("/%s" % post_id)
+            else:
+                self.redirect("/")
         else:
             self.redirect("/")
