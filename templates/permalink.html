@@ -8,6 +8,18 @@
   {% for c in comments %}    
     {{c.render() | safe}}
   {% endfor %}
+
+  {% if not like %}
+    <form method="post" action="?like=True">
+        <button class="submit">LIKE</button>
+    </form>
+  {% else %}
+    <form method="post" action="?unlike=True">
+        <button class="submit">UNLIKE</button>
+    </form>
+  {% endif %}
+  
+
   <form method="post">
       <p>Comment:</p>
       <textarea name="content">{{content}}</textarea>

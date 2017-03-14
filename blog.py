@@ -1,8 +1,8 @@
 import webapp2
 from google.appengine.ext import db
 from app.blog_handler import BlogHandler
-from app.post_database import Post
-from app.user_database import User
+from app.db_post import Post
+from app.db_user import User
 from app.login import Login
 from app.signup import Signup
 from app.logout import Logout
@@ -23,6 +23,6 @@ app = webapp2.WSGIApplication([('/?', BlogFront),
                                ('/newpost', NewPost),
                                ('/signup', Signup),
                                ('/login', Login),
-                               ('/logout', Logout)
+                               ('/logout', Logout)                               
                                ],
                               debug=True)

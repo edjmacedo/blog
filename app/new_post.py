@@ -1,6 +1,6 @@
-from user_database import User
+from db_user import User
 from blog_handler import BlogHandler
-from post_database import Post
+from db_post import Post
 from utils import *
 
 

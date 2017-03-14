@@ -1,5 +1,5 @@
 from google.appengine.ext import db
-from user_database import User
+from db_user import User
 from utils import *
 
 # Comment database

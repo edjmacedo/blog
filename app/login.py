@@ -1,5 +1,5 @@
 from blog_handler import BlogHandler
-from user_database import User
+from db_user import User
 from utils import *
 
 ## Class to handle login action

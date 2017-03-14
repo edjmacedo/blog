@@ -1,6 +1,6 @@
 from blog_handler import BlogHandler
 from utils import *
-from user_database import User
+from db_user import User
 
 ## Signup in blog
 ## - Verify fields and check if is possible to
