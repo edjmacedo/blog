@@ -15,7 +15,7 @@ class NewPost(BlogHandler):
         content = self.request.get('content')
 
         if subject and content:
-            p = Post(parent = blog_key(), subject = subject, content = content)
+            p = Post(parent = blog_key(), subject = subject, content = content, author = int(self.read_secure_cookie('user_id')))
             p.put()
             self.redirect('/%s' % str(p.key().id()))            
         else:
