@@ -2,8 +2,8 @@ from google.appengine.ext import db
 from user_database import User
 from utils import *
 
+# Comment database
 class Comment(db.Model):
-    """Contains info about a comment"""
     post_id = db.IntegerProperty(required = True)
     author = db.IntegerProperty(required = True)
     content = db.StringProperty(required = True)

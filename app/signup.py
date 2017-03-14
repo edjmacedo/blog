@@ -2,6 +2,9 @@ from blog_handler import BlogHandler
 from utils import *
 from user_database import User
 
+## Signup in blog
+## - Verify fields and check if is possible to
+## insert user in USER table
 class Signup(BlogHandler):
     def get(self):
         self.render("signup-form.html")

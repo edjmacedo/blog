@@ -3,6 +3,13 @@ import webapp2
 from user_database import User
 from utils import *
 
+# Handle Object:
+# - Handle frontend template
+# - set secure cookie in login functionality
+# - remove cookie in logout functionality
+# - set secure cookie
+# - initialize function to check in each page if user is logged
+# - read cookie
 class BlogHandler(webapp2.RequestHandler):
 
     def write(self, *a, **kw):
