@@ -2,7 +2,7 @@
 
 {% block content %}
   <a href="/">Home Page</a>
-  {{post.render() | safe}}
+  {{post.render(userid) | safe}}
 
   <h3>Comments</h3>
   {% for c in comments %}    

@@ -61,4 +61,4 @@ def blog_key(name = 'default'):
     
 def render_post(response, post):
     response.out.write('<b>' + post.subject + '</b><br>')
-    response.out.write(post.content)   
+    response.out.write(post.content) 

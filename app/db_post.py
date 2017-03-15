@@ -9,6 +9,8 @@ class Post(db.Model):
     last_modified = db.DateTimeProperty(auto_now = True)
     author = db.IntegerProperty(required = True)
     
-    def render(self):
+    def render(self, userid):
         self._render_text = self.content.replace('\n', '<br>')
-        return render_str("post.html", p = self)
+        return render_str("post.html", p = self,
+                         userid = userid
+                         )

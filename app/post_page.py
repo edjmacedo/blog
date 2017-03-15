@@ -25,7 +25,8 @@ class PostPage(BlogHandler):
                               + post_id + " and author = " 
                               + self.read_secure_cookie('user_id')
                               ).get()            
-            self.render("permalink.html", post = post, comments = comments, like = like)
+            self.render("permalink.html", post = post, comments = comments, like = like,
+                       userid = int(self.read_secure_cookie('user_id')))
         else:
             self.redirect("/")
             
@@ -55,6 +56,7 @@ class PostPage(BlogHandler):
                                           self.read_secure_cookie('user_id')
                                       ), post_id = int(post_id))
                     usr_comment.put()
+                    time.sleep(0.1)
                     self.redirect("/%s" % post_id)
                 else:
                     self.redirect("/")
