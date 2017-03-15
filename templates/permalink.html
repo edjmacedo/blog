@@ -6,7 +6,7 @@
 
   <h3>Comments</h3>
   {% for c in comments %}    
-    {{c.render() | safe}}
+    {{c.render(userid) | safe}}
   {% endfor %}
 
   {% if not like %}

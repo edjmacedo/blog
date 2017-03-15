@@ -51,10 +51,14 @@ class PostPage(BlogHandler):
             else:
                 content = self.request.get("content")
                 if content:
-                    usr_comment = Comment(content = str(content),
-                                      author = int(
-                                          self.read_secure_cookie('user_id')
-                                      ), post_id = int(post_id))
+                    usr_comment = Comment(parent = blog_key(), 
+                                          content = str(content),
+                                          author = int(
+                                              self.read_secure_cookie('user_id')
+                                          ), 
+                                          username = self.user.name, 
+                                          post_id = int(post_id)
+                                         )
                     usr_comment.put()
                     time.sleep(0.1)
                     self.redirect("/%s" % post_id)
