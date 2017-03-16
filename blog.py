@@ -11,6 +11,7 @@ from app.post_page import PostPage
 from app.delete_post import DeletePost
 from app.delete_comment import DeleteComment
 from app.edit_post import EditPost
+from app.edit_comment import EditComment
 
 ### Blog Home Page
 class BlogFront(BlogHandler):
@@ -30,6 +31,7 @@ app = webapp2.WSGIApplication([('/?', BlogFront),
                                ('/logout', Logout),
                                ('/delete/([0-9]+)', DeletePost),
                                ('/delete/([0-9]+)/([0-9]+)', DeleteComment),
-                               ('/edit/([0-9]+)', EditPost)
+                               ('/edit/([0-9]+)', EditPost),
+                               ('/edit/([0-9]+)/([0-9]+)', EditComment)
                                ],
                               debug=True)

@@ -63,6 +63,6 @@ class PostPage(BlogHandler):
                     time.sleep(0.1)
                     self.redirect("/%s" % post_id)
                 else:
-                    self.redirect("/")
+                    self.redirect("/%s" % post_id)
         else:
             self.redirect("/")
