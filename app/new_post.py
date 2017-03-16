@@ -10,7 +10,7 @@ from utils import *
 class NewPost(BlogHandler):
     def get(self):
         if self.user:
-            self.render("newpost.html")
+            self.render("newpost.html", action = "New Post")
         else:
             self.redirect("login")
 
