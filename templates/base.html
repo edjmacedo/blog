@@ -9,14 +9,27 @@
 <body>
   <a href="/" class="main-title">
     Blog
-  </a>  
-  <a href="/logout">
-      Logout
   </a>
-  <br>
-  <a href="/newpost">
-      Post
-  </a>
+  <div class="grid">
+      <div class="row">
+          <div class="col-10"></div>
+          <div class="col-1">
+            <div class="post-btn">
+                <a href="/newpost">
+                    New Post
+                </a>
+            </div>
+          </div>
+          <div class="col-1">
+              <div class="logout-btn">
+                <a href="/logout">
+                    Logout
+                </a>
+              </div>      
+          </div>
+      </div>
+  </div>  
+  <br>  
   <div id="content">
   {% block content %}
   {% endblock %}

@@ -41,6 +41,77 @@ body {
     text-align: center;
 }
 
+/* Logout btn */
+.logout-btn,
+.logout-btn a{
+    width: 60px;
+    height: 30px;
+    background-color: red;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    vertical-align: middle;
+    padding-top: 5px;
+}
+
+.post-btn,
+.post-btn a{
+    width: 65px;
+    height: 30px;
+    background-color: darkgreen;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    vertical-align: middle;
+    padding-top: 5px;
+}
+
+/* front page */
+.delete-btn,
+.delete-btn a{
+    width: 65px;
+    height: 30px;
+    background-color: crimson;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    vertical-align: middle;
+    padding-top: 5px;
+}
+
+/* Like and unlike Button */
+.submit {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Like Lable */
+.like-label {
+    vertical-align: middle;
+}
+
+.unlike {
+    background-color: red; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 h2 {
     font-size: 24px;
     font-weight: bold;

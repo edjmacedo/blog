@@ -12,8 +12,21 @@
   <div class="post-content">
     {{p._render_text | safe}}
   </div>
-  {% if p.author == userid %}    
-    <a href="/delete/{{p.key().id()}}">Delete this post</a>
-    <a href="/edit/{{p.key().id()}}">Edit this post</a>
+  {% if p.author == userid %}
+    <div class="grid">
+        <div class="row">
+            <div class="col-10"></div>
+            <div class="col-1">
+                <div class="post-btn">
+                    <a href="/edit/{{p.key().id()}}">Edit Post</a>
+                </div>  
+            </div>
+            <div class="col-1">
+                <div class="delete-btn">
+                    <a href="/delete/{{p.key().id()}}">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>    
   {% endif %}
 </div>
