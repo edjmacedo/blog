@@ -66,6 +66,20 @@ class PostPage(BlogHandler):
                     time.sleep(0.1)
                     self.redirect("/%s" % post_id)
                 else:
-                    self.redirect("/%s" % post_id)
+                    error = "You need input you comment"
+                    key = db.Key.from_path('Post', int(post_id), 
+                                   parent=blog_key())
+                    post = db.get(key)            
+                    comments = db.GqlQuery("select * from Comment where post_id = "
+                                   + post_id)
+                    like = db.GqlQuery("select * from Like where post_id = "
+                              + post_id + " and author = " 
+                              + self.read_secure_cookie('user_id')
+                              ).get()            
+                    c_like = db.GqlQuery("select * from Like where post_id = "
+                               + post_id)
+                    self.render("permalink.html", post = post, comments = comments, like = like,
+                       userid = int(self.read_secure_cookie('user_id')), 
+                       cLikes = c_like.count(), error = error)                   
         else:
             self.redirect("/")
