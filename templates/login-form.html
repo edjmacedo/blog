@@ -1,44 +1,42 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Login</title>
-    <style type="text/css">
-      .label {text-align: right}
-      .error {color: red}
-    </style>
+{% extends "baseunregister.html" %}
 
-  </head>
-
-  <body>
-    <h2>Login</h2>
-    <form method="post">
-      <table>
-        <tr>
-          <td class="label">
-            Username
-          </td>
-          <td>
-            <input type="text" name="username" value="{{username}}">
-          </td>
-        </tr>
-
-        <tr>
-          <td class="label">
-            Password
-          </td>
-          <td>
-            <input type="password" name="password" value="">
-          </td>
-        </tr>
-      </table>
-
-      <div class="error">
-        {{error}}
-      </div>
-
-      <input type="submit">
-    </form>
-    <a href="/signup">Sign up now</a>
-  </body>
-
-</html>
+{% block content %}
+    <h2 id="login-title">Login</h2>
+    <div class="grid" id=login-form>
+        <form method="post">
+            <div class="row">
+                <div class="col-12">
+                    <div class="label">Username</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <input type="text" name="username" value="{{username}}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="label">Password</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                   <input type="password" name="password" value="">
+                </div>
+            </div>
+            <div clas="row">
+                <div class="col-12">
+                    <input type="submit" value="Login" id="btn-login">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="error">
+                        {{error}}
+                    </div>
+                </div>                
+            </div>                        
+        </form>
+        <a href="/signup">Sign up now</a>
+    </div>    
+{% endblock %}

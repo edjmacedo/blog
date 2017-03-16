@@ -17,7 +17,10 @@ from app.edit_comment import EditComment
 class BlogFront(BlogHandler):
     def get(self):
         if self.user:
-            posts = db.GqlQuery("select * from Post order by created desc limit 10")
+            # get the last 10 blog posts
+            posts = db.GqlQuery(
+                "select * from Post order by created desc limit 10"
+            )
             self.render('front.html', posts=posts, 
                         userid = int(self.read_secure_cookie('user_id')))
         else:
