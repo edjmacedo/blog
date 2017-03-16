@@ -25,8 +25,11 @@ class PostPage(BlogHandler):
                               + post_id + " and author = " 
                               + self.read_secure_cookie('user_id')
                               ).get()            
+            c_like = db.GqlQuery("select * from Like where post_id = "
+                               + post_id)
             self.render("permalink.html", post = post, comments = comments, like = like,
-                       userid = int(self.read_secure_cookie('user_id')))
+                       userid = int(self.read_secure_cookie('user_id')), 
+                       cLikes = c_like.count())
         else:
             self.redirect("/")
             
