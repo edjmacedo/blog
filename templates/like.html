@@ -1,0 +1,18 @@
+<div class="grid">
+    <div class="row">
+        <div class="col-1">            
+            {% if not like %}
+                <form method="post" action="?like=True">
+                    <button class="submit">LIKE</button>
+                </form>
+            {% else %}
+                <form method="post" action="?unlike=True">
+                    <button class="unlike">UNLIKE</button>
+                </form>
+            {% endif %}           
+        </div>
+        <div class="col-3">
+            <p class="like-label"> {{cLikes}} Like this </p>
+        </div>
+      </div>
+</div>  

@@ -40,21 +40,23 @@ class PostPage(BlogHandler):
             ## Verify wich action was taken by user
             ## Like - Unlike or Post new comment
             if self.request.get("like"):
-                usr_like = Like(post_id = int(post_id),
-                               author = int(
-                                self.read_secure_cookie('user_id')
+                if post_id != self.read_secure_cookie('user_id'):
+                    usr_like = Like(post_id = int(post_id),
+                                    author = int(
+                                        self.read_secure_cookie('user_id')
+                                    )
                                 )
-                               )
-                usr_like.put()
-                time.sleep(0.1)
-                self.redirect("/%s" % post_id)
+                    usr_like.put()
+                    time.sleep(0.1)
+                    self.redirect("/%s" % post_id)
             elif self.request.get("unlike"):
-                like = db.GqlQuery("select * from Like where post_id = "
+                if post_id != self.read_secure_cookie('user_id'):
+                    like = db.GqlQuery("select * from Like where post_id = "
                                 + post_id + " AND author = "
                                 + self.read_secure_cookie('user_id'))
-                db.delete(like)
-                time.sleep(0.1)
-                self.redirect("/%s" % post_id)
+                    db.delete(like)
+                    time.sleep(0.1)
+                    self.redirect("/%s" % post_id)
             else:
                 content = self.request.get("content")
                 if content:

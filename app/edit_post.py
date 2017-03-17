@@ -12,6 +12,8 @@ class EditPost(BlogHandler):
             ## Getting post using index key
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
             post = db.get(key)
+            if not post:
+                return self.redirect('/')
             ## Render current post in a editting screen
             self.render("editpost.html", subject = post.subject, content = post.content,
                        action = "Edit Post", post_id = post_id)
@@ -21,7 +23,8 @@ class EditPost(BlogHandler):
     def post(self, post_id):
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
-        
+        if not post:
+            return self.redirect('/')
         ## Getting value inserted in textarea
         subject = self.request.get('subject')
         content = self.request.get('content')
