@@ -11,8 +11,8 @@ class DeleteComment(BlogHandler):
             ## Getting comment key using comment_id
             key = db.Key.from_path('Comment', int(comment_id),
                                    parent=blog_key())
-            if c.author == int(self.read_secure_cookie('user_id')):
-                c = db.get(key)            
+            c = db.get(key)     
+            if c.author == int(self.read_secure_cookie('user_id')):                      
                 c.delete()
                 self.redirect("/"+post_id)
             else:
