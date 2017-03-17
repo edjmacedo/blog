@@ -41,6 +41,10 @@ body {
     text-align: center;
 }
 
+#pswd-verify {
+    margin-left: 5px;
+}
+
 /* Logout btn */
 .logout-btn,
 .logout-btn a{
@@ -53,6 +57,11 @@ body {
     text-decoration: none;
     vertical-align: middle;
     padding-top: 5px;
+}
+
+/* New Post */
+#subject-post {
+    width: 500px;
 }
 
 .post-btn,

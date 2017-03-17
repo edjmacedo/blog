@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 
-{% block content %}
-  <a href="/">Home Page </a>
+{% block content %}  
   <h2>{{action}}</h2>
 
     <form method="post">
       <label>
-        <div>subject</div>
-        <input type="text" name="subject" value="{{subject}}">
+        <div>Subject</div>
+        <input type="text" name="subject" value="{{subject}}" id="subject-post">
       </label>
 
       <label>
-        <div>blog</div>
+        <div>Content</div>
         <textarea name="content">{{content}}</textarea>
       </label>
 
