@@ -12,7 +12,7 @@ class NewPost(BlogHandler):
         if self.user:
             self.render("newpost.html", action = "New Post")
         else:
-            self.redirect("login")
+            self.redirect("/")
 
     def post(self):
         subject = self.request.get('subject')
