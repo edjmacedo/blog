@@ -20,7 +20,7 @@ class PostPage(BlogHandler):
                 self.error(404)
                 return
             comments = db.GqlQuery("select * from Comment where post_id = "
-                                   + post_id)
+                               + post_id + "order by created desc")
             like = db.GqlQuery("select * from Like where post_id = "
                               + post_id + " and author = " 
                               + self.read_secure_cookie('user_id')
@@ -35,6 +35,8 @@ class PostPage(BlogHandler):
             
     def post(self, post_id):
         if self.user:
+            ## Verify wich action was taken by user
+            ## Like - Unlike or Post new comment
             if self.request.get("like"):
                 usr_like = Like(post_id = int(post_id),
                                author = int(
