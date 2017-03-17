@@ -6,6 +6,9 @@
         <textarea name="content">{{content}}</textarea>
         <br>
         <div class="error">{{error}}</div>
-        <button type="submit">Comment</button>
-    </form>
+        <a href="/{{post}}">
+            <input type="button" value="Cancel"></input>
+        </a>
+        <button type="submit">Comment</button>        
+    </form>    
 {% endblock %}

@@ -13,10 +13,10 @@ class EditPost(BlogHandler):
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
             post = db.get(key)
             ## Render current post in a editting screen
-            self.render("newpost.html", subject = post.subject, content = post.content,
-                       action = "Edit Post")
+            self.render("editpost.html", subject = post.subject, content = post.content,
+                       action = "Edit Post", post_id = post_id)
         else:
-            self.redirect("login")
+            self.redirect("/")
 
     def post(self, post_id):
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
@@ -35,5 +35,5 @@ class EditPost(BlogHandler):
             self.redirect('/%s' % str(post.key().id()))
         else:
             error = "subject and content, please!"
-            self.render("newpost.html", subject=subject, content=content,
+            self.render("editpost.html", subject=subject, content=content,
                         error=error)

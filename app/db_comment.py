@@ -7,7 +7,7 @@ class Comment(db.Model):
     post_id = db.IntegerProperty(required = True)
     author = db.IntegerProperty(required = True)
     username = db.StringProperty(required = True)
-    content = db.StringProperty(required = True)
+    content = db.TextProperty(required = True)
     created = db.DateTimeProperty(auto_now_add = True)
     
     def render(self, userid):
