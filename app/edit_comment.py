@@ -12,9 +12,12 @@ class EditComment(BlogHandler):
             key = db.Key.from_path('Comment', int(comment_id),
                                    parent=blog_key())
             c = db.get(key)
-            ## Render comment in a textarea
-            self.render("editcomment.html", content = c.content,
-                       post = post_id)
+            if c.author == int(self.read_secure_cookie('user_id')):
+                ## Render comment in a textarea
+                self.render("editcomment.html", content = c.content,
+                            post = post_id)
+            else:
+                self.redirect("/")
         else:
             self.redirect("/")
             
@@ -24,16 +27,19 @@ class EditComment(BlogHandler):
             key = db.Key.from_path('Comment', int(comment_id),
                                parent=blog_key())
             c = db.get(key)
-            ## Getting the text value inserted in textarea
-            content = self.request.get("content")
-            if content:
-                ## Replace and update the comment
-                c.content = content            
-                c.put()
-                time.sleep(0.1)
-                self.redirect("/%s" % post_id)
+            if c.author == int(self.read_secure_cookie('user_id')):
+                ## Getting the text value inserted in textarea
+                content = self.request.get("content")
+                if content:
+                    ## Replace and update the comment
+                    c.content = content            
+                    c.put()
+                    time.sleep(0.1)
+                    self.redirect("/%s" % post_id)
+                else:
+                    error = "Comment content is necessary"
+                    self.render("editcomment.html", content = content, error = error)
             else:
-                error = "Comment content is necessary"
-                self.render("editcomment.html", content = content, error = error)
+                self.redirect("/")
         else:
             self.redirect("/")

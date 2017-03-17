@@ -15,16 +15,19 @@ class NewPost(BlogHandler):
             self.redirect("/")
 
     def post(self):
-        subject = self.request.get('subject')
-        content = self.request.get('content')
+        if self.user:
+            subject = self.request.get('subject')
+            content = self.request.get('content')
 
-        if subject and content:
-            p = Post(parent = blog_key(), subject = subject, 
+            if subject and content:
+                p = Post(parent = blog_key(), subject = subject, 
                      content = content,
                      author = int(self.read_secure_cookie('user_id')))
-            p.put()
-            self.redirect('/%s' % str(p.key().id()))
-        else:
-            error = "subject and content, please!"
-            self.render("newpost.html", subject=subject, content=content,
+                p.put()
+                self.redirect('/%s' % str(p.key().id()))
+            else:
+                error = "subject and content, please!"
+                self.render("newpost.html", subject=subject, content=content,
                         error=error)
+        else:
+            self.redirect("/")

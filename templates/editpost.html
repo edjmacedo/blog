@@ -15,9 +15,20 @@
       </label>
 
       <div class="error">{{error}}</div>
-      <a href="/{{post_id}}">
-        <input type="button" value="Cancel"></input>
-      </a>
-      <input type="submit">
+      <div class="gid">
+            <div class="row">
+                <div class="col-5"></div>
+                <div class="col-1">
+                    <div class="delete-btn">
+                        <a href="/{{post}}">
+                            Cancel
+                        </a>
+                    </div>        
+                </div>
+                <div class="col-1">
+                    <button type="submit" class="submit-edit">Edit</button>       
+                </div>
+            </div>
+        </div>   
     </form>
 {% endblock %}

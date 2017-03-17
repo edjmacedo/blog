@@ -11,24 +11,18 @@ import time
 class PostPage(BlogHandler):
     def get(self, post_id):
         if self.user:
-            key = db.Key.from_path('Post', int(post_id), 
-                                   parent=blog_key())
-            post = db.get(key)
+            post = get_post_by_id(post_id)            
+            comments = get_comment_by_post_id(post_id)
+            like = get_like_by_userid(post_id, self.read_secure_cookie('user_id'))
+            c_like = get_count_of_like(post_id)
 
             if not post:
                 self.error(404)
                 return
-            comments = db.GqlQuery("select * from Comment where post_id = "
-                               + post_id)
+            
             if not comments:
                 comments = ""
                 
-            like = db.GqlQuery("select * from Like where post_id = "
-                              + post_id + " and author = " 
-                              + self.read_secure_cookie('user_id')
-                              ).get()            
-            c_like = db.GqlQuery("select * from Like where post_id = "
-                               + post_id)
             self.render("permalink.html", post = post, comments = comments, like = like,
                        userid = int(self.read_secure_cookie('user_id')), 
                        cLikes = c_like.count())
@@ -37,10 +31,15 @@ class PostPage(BlogHandler):
             
     def post(self, post_id):
         if self.user:
+            post = get_post_by_id(post_id)            
+            comments = get_comment_by_post_id(post_id)
+            like = get_like_by_userid(post_id, self.read_secure_cookie('user_id'))
+            c_like = get_count_of_like(post_id)
+            
             ## Verify wich action was taken by user
             ## Like - Unlike or Post new comment
             if self.request.get("like"):
-                if post_id != self.read_secure_cookie('user_id'):
+                if post.author != self.read_secure_cookie('user_id'):
                     usr_like = Like(post_id = int(post_id),
                                     author = int(
                                         self.read_secure_cookie('user_id')
@@ -50,7 +49,7 @@ class PostPage(BlogHandler):
                     time.sleep(0.1)
                     self.redirect("/%s" % post_id)
             elif self.request.get("unlike"):
-                if post_id != self.read_secure_cookie('user_id'):
+                if post.author != self.read_secure_cookie('user_id'):
                     like = db.GqlQuery("select * from Like where post_id = "
                                 + post_id + " AND author = "
                                 + self.read_secure_cookie('user_id'))
@@ -72,18 +71,7 @@ class PostPage(BlogHandler):
                     time.sleep(0.1)
                     self.redirect("/%s" % post_id)
                 else:
-                    error = "You need input you comment"
-                    key = db.Key.from_path('Post', int(post_id), 
-                                   parent=blog_key())
-                    post = db.get(key)            
-                    comments = db.GqlQuery("select * from Comment where post_id = "
-                                   + post_id)
-                    like = db.GqlQuery("select * from Like where post_id = "
-                              + post_id + " and author = " 
-                              + self.read_secure_cookie('user_id')
-                              ).get()            
-                    c_like = db.GqlQuery("select * from Like where post_id = "
-                               + post_id)
+                    error = "You need input you comment"                    
                     self.render("permalink.html", post = post, comments = comments, like = like,
                        userid = int(self.read_secure_cookie('user_id')), 
                        cLikes = c_like.count(), error = error)                   

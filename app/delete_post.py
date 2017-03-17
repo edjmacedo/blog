@@ -19,11 +19,14 @@ class DeletePost(BlogHandler):
             ## Getting all comments relative to current post
             comment = db.GqlQuery("select * from Comment where post_id = "
                                  + post_id)
-            ## delete all comments, like and post
-            db.delete(comment)
-            db.delete(like)
-            db.delete(post)
-            time.sleep(0.1)
-            self.redirect("/")
+            if int(self.read_secure_cookie('user_id')) == post.author:
+                ## delete all comments, like and post
+                db.delete(comment)
+                db.delete(like)
+                db.delete(post)
+                time.sleep(0.1)
+                self.redirect("/")
+            else:
+                self.redirect("/")
         else:
             self.redirect("/")

@@ -61,4 +61,23 @@ def blog_key(name = 'default'):
     
 def render_post(response, post):
     response.out.write('<b>' + post.subject + '</b><br>')
-    response.out.write(post.content) 
+    response.out.write(post.content)
+    
+def get_post_by_id(post_id):
+    key = db.Key.from_path('Post', int(post_id), parent=blog_key())
+    post = db.get(key)
+    return post
+
+def get_comment_by_post_id(post_id):
+    comments = db.GqlQuery("select * from Comment where post_id = " + post_id)
+    return comments
+
+def get_like_by_userid(post_id, userid):
+    like = db.GqlQuery("select * from Like where post_id = " + post_id + " and author = " 
+                              + userid
+                              ).get()
+    return like
+
+def get_count_of_like(post_id):
+    c_like = db.GqlQuery("select * from Like where post_id = " + post_id)
+    return c_like
