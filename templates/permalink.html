@@ -22,9 +22,14 @@
         </div>
       </div>
   </div>  
-  {% for c in comments %}    
-    {{c.render(userid) | safe}}
-  {% endfor %}  
+  
+
+  {% if comments != "" %}
+    {% for c in comments %}    
+        {{c.render(userid) | safe}}
+    {% endfor %}
+  {% endif %}
+
 
   <form method="post">
       <p>Comment:</p>

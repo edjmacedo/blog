@@ -10,7 +10,6 @@ import time
 ## - post comment in a post blog
 class PostPage(BlogHandler):
     def get(self, post_id):
-        like = None
         if self.user:
             key = db.Key.from_path('Post', int(post_id), 
                                    parent=blog_key())
@@ -20,7 +19,10 @@ class PostPage(BlogHandler):
                 self.error(404)
                 return
             comments = db.GqlQuery("select * from Comment where post_id = "
-                               + post_id + "order by created desc")
+                               + post_id)
+            if not comments:
+                comments = ""
+                
             like = db.GqlQuery("select * from Like where post_id = "
                               + post_id + " and author = " 
                               + self.read_secure_cookie('user_id')
