@@ -31,10 +31,18 @@ class PostPage(BlogHandler):
             
     def post(self, post_id):
         if self.user:
-            post = get_post_by_id(post_id)            
+            post = get_post_by_id(post_id)
+            if not post:
+                self.redirect("/")
             comments = get_comment_by_post_id(post_id)
+            if not comments:
+                self.redirect("/")
             like = get_like_by_userid(post_id, self.read_secure_cookie('user_id'))
+            if not like:
+                self.redirect("/")
             c_like = get_count_of_like(post_id)
+            if not c_like:
+                self.redirect("/")
             
             ## Verify wich action was taken by user
             ## Like - Unlike or Post new comment
@@ -49,10 +57,15 @@ class PostPage(BlogHandler):
                     time.sleep(0.1)
                     self.redirect("/%s" % post_id)
             elif self.request.get("unlike"):
+                post = get_post_by_id(post_id)
+                if not post:
+                    self.redirect("/")
                 if post.author != self.read_secure_cookie('user_id'):
                     like = db.GqlQuery("select * from Like where post_id = "
                                 + post_id + " AND author = "
                                 + self.read_secure_cookie('user_id'))
+                    if not like:
+                        self.redirect("/")
                     db.delete(like)
                     time.sleep(0.1)
                     self.redirect("/%s" % post_id)
@@ -67,6 +80,8 @@ class PostPage(BlogHandler):
                                           username = self.user.name, 
                                           post_id = int(post_id)
                                          )
+                    if not usr_comment:
+                        self.redirect("/")
                     usr_comment.put()
                     time.sleep(0.1)
                     self.redirect("/%s" % post_id)

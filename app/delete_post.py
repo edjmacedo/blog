@@ -13,12 +13,18 @@ class DeletePost(BlogHandler):
             ## Getting post key using post_id and user_id
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
             post = db.get(key)
+            if not post:
+                self.redirect("/")
             ## Searching and getting all likes relative to current post
             like = db.GqlQuery("select * from Like where post_id = "
                                + post_id)
+            if not like:
+                self.redirect("/")
             ## Getting all comments relative to current post
             comment = db.GqlQuery("select * from Comment where post_id = "
                                  + post_id)
+            if not comment:
+                self.redirect("/")
             if int(self.read_secure_cookie('user_id')) == post.author:
                 ## delete all comments, like and post
                 db.delete(comment)
